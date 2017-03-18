@@ -1,6 +1,6 @@
-package com.company;
+package com.company.beans;
 
-import com.company.Category;
+import com.company.enums.Category;
 
 /**
  * Created by Андрей on 18.03.2017.
@@ -16,6 +16,7 @@ public class SportEquipment {
         this.title = title;
         this.price = price;
     }
+
     public String getTitle() {
         return title;
     }
@@ -23,10 +24,10 @@ public class SportEquipment {
     public void setTitle(String title) {
         this.title = title;
     }
+
     public Category getCategory() {
         return category;
     }
-
 
 
     public void setCategory(Category category) {
