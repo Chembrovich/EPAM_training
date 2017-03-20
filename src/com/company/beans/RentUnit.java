@@ -31,7 +31,7 @@ public class RentUnit implements Serializable {
     }
 
     public SportEquipment removeFromRentList(int numberOfRentedElement) {
-        if (numberOfRentedElement < 0 || numberOfRentedElement > countOfRentedElements ) {
+        if (numberOfRentedElement < 0 || numberOfRentedElement > countOfRentedElements) {
             System.out.println("There is no such item!");
             return null;
         }
@@ -39,7 +39,7 @@ public class RentUnit implements Serializable {
             System.out.println("You haven't any rented items!");
             return null;
         } else {
-            SportEquipment returnedEquipment=units[numberOfRentedElement - 1];
+            SportEquipment returnedEquipment = units[numberOfRentedElement - 1];
             units[numberOfRentedElement - 1] = null;
             System.arraycopy(units, numberOfRentedElement, units, numberOfRentedElement - 1, 3 - numberOfRentedElement);
             countOfRentedElements--;

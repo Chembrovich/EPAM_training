@@ -22,7 +22,7 @@ public class UserBill implements Serializable {
 
     public boolean withdrawMoney(int cost) {
         if (cost > userMoney) {
-            System.out.printf("Is not enough money in the bill! Need %d$", cost-userMoney);
+            System.out.printf("Is not enough money in the bill! Need %d$", cost - userMoney);
             return false;
         } else {
             userMoney -= cost;
@@ -31,13 +31,14 @@ public class UserBill implements Serializable {
     }
 
     public void addMoney(int amountOfMoney) {
-        if (amountOfMoney<1){
+        if (amountOfMoney < 1) {
             System.out.println("Value must be positive!");
-        }else {
+        } else {
             userMoney += amountOfMoney;
         }
     }
-    public void showAmountOfMoney(){
-        System.out.println("There is "+userMoney+"$ in your bill.");
+
+    public void showAmountOfMoney() {
+        System.out.println("There is " + userMoney + "$ in your bill.");
     }
 }
