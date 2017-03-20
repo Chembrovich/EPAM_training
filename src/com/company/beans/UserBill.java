@@ -20,7 +20,7 @@ public class UserBill {
 
     public boolean withdrawMoney(int cost) {
         if (cost > userMoney) {
-            System.out.println("Is not enough money on the bill!");
+            System.out.printf("Is not enough money in the bill! Need %d$", cost-userMoney);
             return false;
         } else {
             userMoney -= cost;
@@ -28,14 +28,14 @@ public class UserBill {
         }
     }
 
-    public void addMoney(int amount) {
-        if (amount<0){
-            System.out.println("");
+    public void addMoney(int amountOfMoney) {
+        if (amountOfMoney<1){
+            System.out.println("Value must be positive!");
         }else {
-            userMoney += amount;
+            userMoney += amountOfMoney;
         }
     }
     public void showAmountOfMoney(){
-        System.out.println(userMoney);
+        System.out.println("There is "+userMoney+"$ in your bill.");
     }
 }

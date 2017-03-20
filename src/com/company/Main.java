@@ -2,7 +2,6 @@ package com.company;
 
 import com.company.beans.Shop;
 import com.company.beans.SportEquipment;
-import com.company.beans.UserBill;
 import com.company.enums.Category;
 import java.util.Scanner;
 import java.util.InputMismatchException;
@@ -38,46 +37,59 @@ public class Main {
             }
         }
 
-        UserBill userBill=new UserBill(userMoney);
+        shop.initializeUserBill(userMoney);
         shop.showMenu();
 
         boolean notExit = true;
         while (notExit) {
             System.out.print("\n Select menu item: ");
-            String menuItem = new String();
+            String menuItem;
             Scanner in = new Scanner(System.in);
             menuItem = in.nextLine();
             menuItem = menuItem.toLowerCase();
+
             switch (menuItem) {
-                case "show menu":
-                    shop.showMenu();
-                    break;
                 case "1":
-                case "show available sport equipment":
                     shop.showAvailableEquipment();
                     break;
                 case "2":
                     shop.showAvailableEquipment();
                     System.out.print("Enter number of item that you want to rent: ");
-                    int numberOfItem=in.nextInt();
-                    shop.rentSportEquipment(numberOfItem);
+                    try {
+                        shop.rentSportEquipment(in.nextInt());
+                    } catch (InputMismatchException ex) {
+                        System.out.println("Incorrect value!");
+                    } catch (ArrayIndexOutOfBoundsException ex) {
+                        System.out.println("There is no such item.");
+                    }
                     break;
                 case "3":
                     shop.showRentedEquipment();
                     break;
                 case "4":
-                case "return sport equipment":
-                    if (shop.showRentedEquipment() > 0) {
+                    if(shop.showRentedEquipment()>0) {
                         System.out.print("Enter number of item that you want to return: ");
-                        shop.returnRentedSportEquipment(in.nextInt());
+                        try {
+                            shop.returnRentedSportEquipment(in.nextInt());
+                        } catch (InputMismatchException ex) {
+                            System.out.println("Incorrect value!");
+                        } catch (ArrayIndexOutOfBoundsException ex) {
+                            System.out.println("There is no such item.");
+                        }
                     }
                     break;
                 case "5":
-                    userBill.showAmountOfMoney();
+                    shop.showUserBill();
                     break;
                 case "6":
-                    int amountOfMoney = in.nextInt();
-                    userBill.addMoney(amountOfMoney);
+                    System.out.println("Enter amount of money that you want to add: ");
+                    int amountOfMoney;
+                    try {
+                        amountOfMoney = in.nextInt();
+                        shop.addMoneyToUserBill(amountOfMoney);
+                    } catch(InputMismatchException ex) {
+                        System.out.println("Invalid value!");
+                    }
                     break;
                 case "7":
                     System.out.print("Enter title: ");
@@ -87,6 +99,10 @@ public class Main {
                 case "8":
                 case "exit":
                     notExit = false;
+                    break;
+                case "9":
+                case "show menu":
+                    shop.showMenu();
                     break;
                 default:
                     System.out.println("Unknown command!");
