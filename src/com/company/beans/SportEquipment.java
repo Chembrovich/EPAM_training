@@ -2,11 +2,13 @@ package com.company.beans;
 
 import com.company.enums.Category;
 
+import java.io.Serializable;
+
 /**
  * Created by Андрей on 18.03.2017.
  */
 
-public class SportEquipment {
+public class SportEquipment implements Serializable {
     private Category category;
     private String title;
     private int price;

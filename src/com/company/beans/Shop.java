@@ -4,13 +4,17 @@ package com.company.beans;
  * Created by Андрей on 18.03.2017.
  */
 
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Shop {
+public class Shop implements Serializable {
     private Map<SportEquipment, Integer> goods;
     private RentUnit rentUnit;
     private UserBill userBill;
+    private static final long serialVersionUID = 1L;
 
     public Shop() {
         goods = new LinkedHashMap<SportEquipment, Integer>();
@@ -18,12 +22,6 @@ public class Shop {
         userBill = new UserBill(0);
     }
 
-    public Shop(SportEquipment key, Integer value) {
-        rentUnit = new RentUnit();
-        goods = new LinkedHashMap<SportEquipment, Integer>();
-        goods.put(key, value);
-        userBill = new UserBill(0);
-    }
 
     public void addSportEquipment(SportEquipment key, Integer count) {
         if (goods.containsKey(key)) {
@@ -33,7 +31,7 @@ public class Shop {
             goods.put(key, count);
     }
 
-    public void removeSportEquipment(SportEquipment key) {
+    private void removeSportEquipment(SportEquipment key) {
         if (goods.containsKey(key)) {
             Integer currentValue = goods.get(key);
             if (currentValue == 1) {
@@ -79,8 +77,8 @@ public class Shop {
     public void returnRentedSportEquipment(int numberOfRentedEquipment) {
         SportEquipment returnedEquipment;
         returnedEquipment = rentUnit.removeFromRentList(numberOfRentedEquipment);
-        if (returnedEquipment!=null) {
-            addSportEquipment(returnedEquipment,1);
+        if (returnedEquipment != null) {
+            addSportEquipment(returnedEquipment, 1);
         }
     }
 
@@ -99,8 +97,11 @@ public class Shop {
     public void findSportEquipmentByTitle(String userString) {
         int number = 1;
         for (Map.Entry<SportEquipment, Integer> entry : goods.entrySet()) {
-            if (entry.getKey().getTitle().indexOf(userString) != -1) {
-                System.out.println(number + ") " + entry.getKey().getTitle() + "; count = " + entry.getValue());
+            if (entry.getKey().getTitle().contains(userString)) {
+                System.out.println(number + ") " + entry.getKey().getTitle());
+                System.out.println("    Category: " + entry.getKey().getCategory().toString());
+                System.out.println("    Cost: " + entry.getKey().getPrice());
+                System.out.println("    Count: " + entry.getValue());
                 number++;
             }
         }

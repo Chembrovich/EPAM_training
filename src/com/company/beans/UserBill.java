@@ -1,9 +1,11 @@
 package com.company.beans;
 
+import java.io.Serializable;
+
 /**
  * Created by Андрей on 19.03.2017.
  */
-public class UserBill {
+public class UserBill implements Serializable {
     private int userMoney;
 
     public int getUserMoney() {

@@ -1,10 +1,12 @@
 package com.company.beans;
 
+import java.io.Serializable;
+
 /**
  * Created by Андрей on 18.03.2017.
  */
 
-public class RentUnit {
+public class RentUnit implements Serializable {
     private SportEquipment[] units;
 
     public byte getCountOfRentedElements() {
@@ -24,6 +26,7 @@ public class RentUnit {
         } else {
             units[countOfRentedElements] = sportEquipment;
             countOfRentedElements++;
+            System.out.println("You rent the sport equipment successfully.");
         }
     }
 

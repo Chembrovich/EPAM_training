@@ -1,22 +1,22 @@
 package com.company;
 
 import com.company.beans.Shop;
-import com.company.beans.SportEquipment;
-import com.company.enums.Category;
+
+import java.io.*;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
 public class Main {
 
     public static void main(String[] args) {
-        SportEquipment ball = new SportEquipment(Category.FOOTBALL, "Football ball", 35);
-        SportEquipment ball1 = new SportEquipment(Category.VOLLEYBALL, "Volleyball ball", 25);
-        SportEquipment ball2 = new SportEquipment(Category.BASEBALL, "Baseball ball", 10);
-
         Shop shop = new Shop();
-        shop.addSportEquipment(ball, 3);
-        shop.addSportEquipment(ball1, 2);
-        shop.addSportEquipment(ball2, 10);
+
+        try (ObjectInputStream objInputStream = new ObjectInputStream(new FileInputStream("src/com/company/shop.dat"))) {
+            shop = (Shop) objInputStream.readObject();
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
 
         int userMoney = 0;
         boolean userMoneyIsCorrect = false;
@@ -67,7 +67,7 @@ public class Main {
                     shop.showRentedEquipment();
                     break;
                 case "4":
-                    if(shop.showRentedEquipment()>0) {
+                    if (shop.showRentedEquipment() > 0) {
                         System.out.print("Enter number of item that you want to return: ");
                         try {
                             shop.returnRentedSportEquipment(in.nextInt());
@@ -82,12 +82,12 @@ public class Main {
                     shop.showUserBill();
                     break;
                 case "6":
-                    System.out.println("Enter amount of money that you want to add: ");
+                    System.out.print("Enter amount of money that you want to add: ");
                     int amountOfMoney;
                     try {
                         amountOfMoney = in.nextInt();
                         shop.addMoneyToUserBill(amountOfMoney);
-                    } catch(InputMismatchException ex) {
+                    } catch (InputMismatchException ex) {
                         System.out.println("Invalid value!");
                     }
                     break;
